@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Atharv — CS Student & Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+/* ============================================================
+   PORTFOLIO — DARK EDITORIAL THEME
+   ============================================================
+   HOW TO CUSTOMIZE:
+   - Colors:    Find :root {} below — change --accent for brand color
+   - Fonts:     Change --ff-display and --ff-mono to any Google Font
+   - Spacing:   Change --section-gap for tighter/looser sections
+   ============================================================ */
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  /* ——— COLORS — change --accent to your brand color ——— */
+  --bg:#0a0a0f;
+  --bg2:#0f0f16;
+  --bg3:#13131c;
+  --surface:#1a1a26;
+  --surface2:#20202e;
+  --accent:#4f8ef7;        /* ← YOUR BRAND COLOR — try #10b981 (green), #f59e0b (amber), #a78bfa (purple) */
+  --accent2:#7cb3ff;
+  --muted:#8b8fa8;
+  --text:#f0eff6;
+  --text2:#c8c7d4;
+  --border:#ffffff0f;
+  --border2:#ffffff18;
+
+  /* ——— TYPOGRAPHY ——— */
+  --ff-display:'Syne',sans-serif;      /* ← swap for 'Space Grotesk', 'Cabinet Grotesk', 'Clash Display' etc */
+  --ff-mono:'JetBrains Mono',monospace; /* ← swap for 'Fira Code', 'IBM Plex Mono' etc */
+
+  /* ——— LAYOUT ——— */
+  --max:1100px;
+  --section-gap:140px;   /* ← reduce to 80px for tighter layout */
+}
+
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--ff-mono);
+  line-height:1.7;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* === CUSTOM CURSOR (disable on mobile automatically) === */
+#cursor{
+  position:fixed;width:10px;height:10px;
+  background:var(--accent);border-radius:50%;
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:transform .1s,width .25s,height .25s,opacity .25s;
+  mix-blend-mode:difference;
+}
+#cursor-ring{
+  position:fixed;width:36px;height:36px;
+  border:1px solid var(--accent);border-radius:50%;
+  pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:transform .18s ease,width .3s,height .3s,border-color .3s;
+  opacity:.5;
+}
+
+/* === SCROLLBAR === */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--surface2);border-radius:4px}
+
+/* === LAYOUT === */
+.container{max-width:var(--max);margin:0 auto;padding:0 40px}
+@media(max-width:768px){.container{padding:0 24px}}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:20px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  backdrop-filter:blur(20px);
+  background:rgba(10,10,15,.7);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:var(--ff-display);font-size:18px;font-weight:700;letter-spacing:-.5px;
+  text-decoration:none;color:var(--text);
+}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{
+  color:var(--muted);text-decoration:none;font-size:12px;
+  letter-spacing:.08em;text-transform:uppercase;transition:color .2s;
+}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{
+  background:var(--accent);color:#fff;
+  padding:8px 20px;border-radius:6px;
+  font-size:12px;text-decoration:none;
+  font-family:var(--ff-mono);letter-spacing:.06em;
+  transition:background .2s,transform .15s;
+}
+.nav-cta:hover{background:var(--accent2);transform:translateY(-1px)}
+@media(max-width:768px){
+  .nav-links{display:none}
+  nav{padding:16px 24px}
+}
+
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
+#hero{
+  position:relative;min-height:100vh;
+  display:flex;align-items:center;
+  overflow:hidden;padding-top:80px;
+}
+#hero-canvas{position:absolute;inset:0;opacity:.5}
+.hero-inner{
+  position:relative;z-index:2;
+  max-width:var(--max);margin:0 auto;
+  padding:0 40px;width:100%;
+}
+.hero-label{
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:24px;
+  display:flex;align-items:center;gap:10px;
+  opacity:0;animation:fadeUp .8s .2s forwards;
+}
+.hero-label::before{content:'';width:24px;height:1px;background:var(--accent)}
+
+/* ——— CHANGE YOUR HEADLINE BELOW IN THE HTML ——— */
+.hero-h1{
+  font-family:var(--ff-display);
+  font-size:clamp(48px,8vw,108px);
+  font-weight:800;line-height:.95;letter-spacing:-3px;
+  margin-bottom:32px;
+  opacity:0;animation:fadeUp .8s .35s forwards;
+}
+.hero-h1 .line2{
+  color:transparent;
+  -webkit-text-stroke:1px var(--text2);
+  display:block;
+}
+.hero-h1 .accent{color:var(--accent)}
+.hero-sub{
+  max-width:520px;color:var(--text2);font-size:15px;line-height:1.8;
+  margin-bottom:48px;
+  opacity:0;animation:fadeUp .8s .5s forwards;
+}
+.hero-ctas{
+  display:flex;gap:16px;flex-wrap:wrap;
+  opacity:0;animation:fadeUp .8s .65s forwards;
+}
+.btn-primary{
+  background:var(--accent);color:#fff;
+  padding:14px 32px;border-radius:8px;
+  text-decoration:none;font-size:13px;letter-spacing:.05em;
+  transition:transform .2s,box-shadow .2s;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn-primary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 40px rgba(79,142,247,.3);
+}
+.btn-secondary{
+  border:1px solid var(--border2);color:var(--text);
+  padding:14px 32px;border-radius:8px;
+  text-decoration:none;font-size:13px;letter-spacing:.05em;
+  transition:border-color .2s,background .2s,transform .2s;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn-secondary:hover{
+  border-color:var(--accent);
+  background:rgba(79,142,247,.05);
+  transform:translateY(-2px);
+}
+.hero-metrics{
+  position:absolute;bottom:48px;right:40px;
+  display:flex;gap:40px;
+  opacity:0;animation:fadeUp .8s .85s forwards;
+}
+.metric{text-align:right}
+.metric-num{font-family:var(--ff-display);font-size:32px;font-weight:700;color:var(--text)}
+.metric-label{font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+@media(max-width:768px){
+  .hero-metrics{display:none}
+  .hero-inner{padding:0 24px}
+}
+
+/* ============================================================
+   SHARED SECTION STYLES
+   ============================================================ */
+.section-label{
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:16px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-label::before{content:'';width:24px;height:1px;background:var(--accent)}
+.section-num{color:var(--surface2);font-size:11px;margin-right:4px}
+.section-title{
+  font-family:var(--ff-display);
+  font-size:clamp(32px,5vw,56px);
+  font-weight:800;letter-spacing:-2px;line-height:1.05;
+  margin-bottom:16px;
+}
+.section-sub{color:var(--muted);font-size:14px;max-width:480px;line-height:1.8}
+
+/* ============================================================
+   ABOUT SECTION
+   ============================================================ */
+#about{padding:var(--section-gap) 0}
+.about-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;
+  align-items:start;margin-top:64px;
+}
+.about-text p{color:var(--text2);font-size:15px;line-height:1.9;margin-bottom:20px}
+.about-text p strong{color:var(--text);font-weight:500}
+.about-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:32px}
+.tag{
+  border:1px solid var(--border2);padding:6px 14px;
+  border-radius:100px;font-size:12px;color:var(--muted);
+  transition:border-color .2s,color .2s;
+}
+.tag:hover{border-color:var(--accent);color:var(--accent)}
+.about-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:32px;position:sticky;top:100px;
+}
+.about-card-header{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.avatar{
+  width:56px;height:56px;border-radius:12px;
+  background:linear-gradient(135deg,var(--accent),#a78bfa);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--ff-display);font-size:20px;font-weight:800;color:#fff;
+}
+.about-card h3{font-family:var(--ff-display);font-size:18px;font-weight:700}
+.about-card p{color:var(--muted);font-size:12px}
+.card-row{
+  display:flex;justify-content:space-between;
+  padding:12px 0;border-bottom:1px solid var(--border);font-size:13px;
+}
+.card-row:last-child{border-bottom:none}
+.card-row span:first-child{color:var(--muted)}
+.card-row span:last-child{color:var(--text)}
+.status-dot{
+  display:inline-block;width:7px;height:7px;
+  background:#3ecf8e;border-radius:50%;margin-right:6px;
+  box-shadow:0 0 8px #3ecf8e;
+}
+@media(max-width:768px){
+  .about-grid{grid-template-columns:1fr;gap:40px}
+  .about-card{position:static}
+}
+
+/* ============================================================
+   SKILLS SECTION
+   ============================================================ */
+#skills{padding:var(--section-gap) 0}
+.skills-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:2px;margin-top:64px;
+  border:1px solid var(--border);border-radius:16px;overflow:hidden;
+}
+.skill-item{
+  background:var(--bg2);padding:28px 24px;
+  display:flex;flex-direction:column;gap:12px;
+  transition:background .25s,transform .2s;cursor:default;
+  position:relative;overflow:hidden;
+}
+.skill-item::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(79,142,247,.06),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.skill-item:hover{background:var(--surface);transform:scale(1.01)}
+.skill-item:hover::before{opacity:1}
+.skill-icon{font-size:28px;line-height:1}
+.skill-name{font-family:var(--ff-display);font-size:15px;font-weight:600;color:var(--text)}
+.skill-level{font-size:11px;color:var(--muted);letter-spacing:.05em}
+.skill-bar{height:2px;background:var(--border2);border-radius:2px;margin-top:4px}
+.skill-bar-fill{
+  height:100%;background:var(--accent);border-radius:2px;
+  transition:width .8s cubic-bezier(.4,0,.2,1);
+}
+
+/* ============================================================
+   PROJECTS SECTION
+   ============================================================ */
+#projects{padding:var(--section-gap) 0}
+.projects-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:20px;margin-top:64px;
+}
+.project-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;overflow:hidden;
+  transition:transform .3s,border-color .3s,box-shadow .3s;
+  position:relative;
+}
+.project-card:hover{
+  transform:translateY(-6px);
+  border-color:var(--accent);
+  box-shadow:0 24px 80px rgba(0,0,0,.4);
+}
+.project-featured{grid-column:span 2}
+.project-header{
+  padding:32px 32px 0;
+  display:flex;justify-content:space-between;align-items:flex-start;
+}
+.project-num{font-size:11px;color:var(--muted);letter-spacing:.1em}
+.project-links{display:flex;gap:8px}
+.project-link{
+  border:1px solid var(--border2);color:var(--muted);
+  padding:6px 14px;border-radius:6px;font-size:11px;
+  text-decoration:none;transition:border-color .2s,color .2s;letter-spacing:.05em;
+}
+.project-link:hover{border-color:var(--accent);color:var(--accent)}
+.project-body{padding:24px 32px 32px}
+.project-title{
+  font-family:var(--ff-display);font-size:24px;font-weight:700;
+  margin-bottom:10px;letter-spacing:-.5px;
+}
+.project-featured .project-title{font-size:clamp(24px,4vw,38px)}
+.project-desc{color:var(--muted);font-size:13px;line-height:1.8;margin-bottom:20px}
+.project-stack{display:flex;flex-wrap:wrap;gap:6px}
+.stack-tag{
+  background:var(--bg3);border:1px solid var(--border);
+  padding:4px 10px;border-radius:4px;font-size:11px;
+  color:var(--text2);letter-spacing:.04em;
+}
+.project-impact{
+  display:flex;align-items:center;gap:6px;
+  margin-top:20px;padding-top:20px;border-top:1px solid var(--border);
+  font-size:12px;color:var(--accent);
+}
+.project-impact::before{content:'↑';font-size:14px}
+@media(max-width:768px){
+  .projects-grid{grid-template-columns:1fr}
+  .project-featured{grid-column:span 1}
+  .project-header{flex-direction:column;gap:16px}
+}
+
+/* ============================================================
+   EXPERIENCE SECTION
+   ============================================================ */
+#experience{padding:var(--section-gap) 0}
+.timeline{margin-top:64px;position:relative;padding-left:32px}
+.timeline::before{
+  content:'';position:absolute;left:0;top:8px;bottom:8px;
+  width:1px;background:var(--border2);
+}
+.timeline-item{position:relative;margin-bottom:56px}
+.timeline-item::before{
+  content:'';position:absolute;left:-36px;top:8px;
+  width:9px;height:9px;border-radius:50%;
+  background:var(--accent);box-shadow:0 0 16px rgba(79,142,247,.5);
+}
+.timeline-header{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  margin-bottom:8px;flex-wrap:wrap;gap:8px;
+}
+.timeline-role{font-family:var(--ff-display);font-size:18px;font-weight:700}
+.timeline-date{
+  font-size:12px;color:var(--muted);background:var(--surface);
+  padding:4px 12px;border-radius:100px;border:1px solid var(--border);white-space:nowrap;
+}
+.timeline-org{color:var(--accent);font-size:13px;margin-bottom:12px}
+.timeline-desc{color:var(--muted);font-size:13px;line-height:1.8}
+
+/* ============================================================
+   ACHIEVEMENTS SECTION
+   ============================================================ */
+#achievements{padding:var(--section-gap) 0}
+.achieve-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:16px;margin-top:64px;
+}
+.achieve-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:28px;
+  transition:border-color .25s,transform .2s;
+}
+.achieve-card:hover{border-color:var(--accent);transform:translateY(-3px)}
+.achieve-icon{font-size:32px;margin-bottom:16px}
+.achieve-title{font-family:var(--ff-display);font-size:16px;font-weight:700;margin-bottom:6px}
+.achieve-sub{color:var(--muted);font-size:12px;line-height:1.7}
+@media(max-width:768px){.achieve-grid{grid-template-columns:1fr}}
+
+/* ============================================================
+   CONTACT SECTION
+   ============================================================ */
+#contact{padding:var(--section-gap) 0 120px}
+.contact-inner{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:24px;padding:80px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.contact-inner::before{
+  content:'';position:absolute;top:-60px;left:50%;
+  transform:translateX(-50%);width:400px;height:400px;
+  background:radial-gradient(circle,rgba(79,142,247,.12) 0%,transparent 70%);
+  pointer-events:none;
+}
+.contact-inner .section-title{font-size:clamp(32px,5vw,64px);margin-bottom:20px}
+.contact-inner p{
+  color:var(--muted);max-width:480px;margin:0 auto 48px;
+  font-size:14px;line-height:1.9;
+}
+.contact-ctas{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.contact-links{
+  display:flex;justify-content:center;gap:24px;
+  margin-top:48px;flex-wrap:wrap;
+}
+.contact-link{
+  color:var(--muted);text-decoration:none;font-size:12px;
+  letter-spacing:.08em;text-transform:uppercase;
+  transition:color .2s;display:flex;align-items:center;gap:6px;
+}
+.contact-link:hover{color:var(--text)}
+@media(max-width:768px){.contact-inner{padding:40px 24px}}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{padding:32px 0;border-top:1px solid var(--border)}
+.footer-inner{
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:16px;
+}
+.footer-left{font-size:12px;color:var(--muted)}
+.footer-left span{color:var(--accent)}
+.footer-right{font-size:11px;color:var(--muted);letter-spacing:.06em}
+
+/* ============================================================
+   REVEAL ANIMATIONS
+   ============================================================ */
+.reveal{
+  opacity:0;transform:translateY(30px);
+  transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1);
+}
+.reveal.revealed{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+.reveal-delay-4{transition-delay:.4s}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* === SUBTLE NOISE TEXTURE OVERLAY === */
+body::after{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity:.025;pointer-events:none;z-index:9997;
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR ELEMENTS (auto-hidden on touch devices) -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- ============================================================
+     NAVIGATION
+     TO CHANGE: update nav-logo text, links, and hire me href
+     ============================================================ -->
+<nav>
+  <a href="#hero" class="nav-logo">A<span>.</span>dev</a>  <!-- ← change "A" to your initial -->
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Stack</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:your@email.com" class="nav-cta">Hire me ↗</a>  <!-- ← change email -->
+</nav>
+
+<!-- ============================================================
+     HERO SECTION
+     TO CHANGE: hero-label, both lines of hero-h1, hero-sub text,
+                metric numbers, and CTA button links
+     ============================================================ -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-inner">
+
+    <!-- Small label above headline -->
+    <div class="hero-label">Available for internships &amp; collabs</div>  <!-- ← change availability status -->
+
+    <!-- Big headline — two lines -->
+    <h1 class="hero-h1">
+      Building<br>
+      <span class="line2">The Future</span>  <!-- ← change second line, e.g. "Cool Stuff" -->
+      <span class="accent">.</span>
+    </h1>
+
+    <!-- One-liner value prop -->
+    <p class="hero-sub">
+      CS student · Full Stack Engineer · Security Researcher.
+      I build things that are fast, secure, and beautiful — from web apps to low-level systems.
+    </p>  <!-- ← change your tagline -->
+
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">View my work →</a>
+      <a href="#contact" class="btn-secondary">Let's talk</a>
+    </div>
+  </div>
+
+  <!-- Bottom-right metrics — change numbers to yours -->
+  <div class="hero-metrics">
+    <div class="metric">
+      <div class="metric-num">12+</div>          <!-- ← your project count -->
+      <div class="metric-label">Projects shipped</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num">3×</div>            <!-- ← your hackathon wins -->
+      <div class="metric-label">Hackathon winner</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num">∞</div>
+      <div class="metric-label">Commits ahead</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ABOUT SECTION
+     TO CHANGE: three paragraphs, about-tags, and the card details
+     ============================================================ -->
+<section id="about">
+  <div class="container">
+    <div class="section-label"><span class="section-num">01</span> About</div>
+    <h2 class="section-title reveal">Who I am.</h2>
+    <div class="about-grid">
+
+      <div class="about-text reveal reveal-delay-1">
+        <!-- ← change these three paragraphs to your own story -->
+        <p>I'm a <strong>Computer Science student</strong> obsessed with the intersection of systems thinking and elegant user interfaces. I believe the best software is invisible — it just works, and works fast.</p>
+        <p>My technical range spans full-stack development, <strong>cybersecurity research</strong>, and AI tooling. I'm the kind of engineer who reads the spec, writes the tests, and still finds time to pixel-push the UI.</p>
+        <p>Currently looking for internships where I can ship real products, work with smart people, and grow faster than I ever would alone.</p>
+        <div class="about-tags">
+          <!-- ← add or remove tags as you like -->
+          <span class="tag">Problem solver</span>
+          <span class="tag">Open source contributor</span>
+          <span class="tag">Security-first mindset</span>
+          <span class="tag">Side-project builder</span>
+          <span class="tag">Systems thinker</span>
+        </div>
+      </div>
+
+      <!-- Info card — change every value to yours -->
+      <div class="about-card reveal reveal-delay-2">
+        <div class="about-card-header">
+          <div class="avatar">A</div>   <!-- ← change letter to your initial -->
+          <div>
+            <h3>Atharv</h3>             <!-- ← your name -->
+            <p>CS Student &amp; Engineer</p>
+          </div>
+        </div>
+        <div class="card-row"><span>Status</span><span><span class="status-dot"></span>Open to work</span></div>
+        <div class="card-row"><span>Focus</span><span>Full Stack + Security</span></div>      <!-- ← your focus -->
+        <div class="card-row"><span>Availability</span><span>From May 2025</span></div>       <!-- ← your date -->
+        <div class="card-row"><span>Location</span><span>India (Remote OK)</span></div>       <!-- ← your location -->
+        <div class="card-row"><span>Mode</span><span>Student + Builder</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SKILLS SECTION
+     TO CHANGE: edit the skills array in the <script> section
+                at the bottom — search for "SKILLS DATA"
+     ============================================================ -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label"><span class="section-num">02</span> Stack</div>
+    <h2 class="section-title reveal">What I build with.</h2>
+    <p class="section-sub reveal reveal-delay-1">A curated toolkit — not everything, just what I've actually shipped with.</p>
+    <div class="skills-grid reveal reveal-delay-2" id="skills-grid"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROJECTS SECTION
+     TO CHANGE: edit the projects array in the <script> section
+                at the bottom — search for "PROJECTS DATA"
+     ============================================================ -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label"><span class="section-num">03</span> Projects</div>
+    <h2 class="section-title reveal">Things I've built.</h2>
+    <p class="section-sub reveal reveal-delay-1">Selected work — each one a different problem, a different lesson.</p>
+    <div class="projects-grid" id="projects-grid"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     EXPERIENCE SECTION
+     TO CHANGE: edit the xp array in the <script> section
+                at the bottom — search for "EXPERIENCE DATA"
+     ============================================================ -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label"><span class="section-num">04</span> Experience</div>
+    <h2 class="section-title reveal">Where I've been.</h2>
+    <div class="timeline reveal reveal-delay-1" id="timeline-container"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ACHIEVEMENTS SECTION
+     TO CHANGE: edit the achievements array in <script>
+                search for "ACHIEVEMENTS DATA"
+     ============================================================ -->
+<section id="achievements">
+  <div class="container">
+    <div class="section-label"><span class="section-num">05</span> Recognition</div>
+    <h2 class="section-title reveal">Wins &amp; certs.</h2>
+    <div class="achieve-grid" id="achieve-grid"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT SECTION
+     TO CHANGE: headline, paragraph, email links, and social links
+     ============================================================ -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner reveal">
+      <div class="section-label" style="justify-content:center"><span class="section-num">06</span> Contact</div>
+      <h2 class="section-title">Let's build something.</h2>
+      <p>I'm actively looking for internships, project collaborations, and hackathon teams. If you're building something interesting — let's talk.</p>
+      <div class="contact-ctas">
+        <a href="mailto:your@email.com" class="btn-primary">Send me an email →</a>  <!-- ← your email -->
+        <a href="#" class="btn-secondary">Download CV</a>  <!-- ← link to your CV PDF -->
+      </div>
+      <div class="contact-links">
+        <!-- ← update each href with your actual profile URLs -->
+        <a href="https://github.com/yourusername" target="_blank" class="contact-link">⎋ GitHub</a>
+        <a href="https://linkedin.com/in/yourusername" target="_blank" class="contact-link">⊞ LinkedIn</a>
+        <a href="https://twitter.com/yourusername" target="_blank" class="contact-link">◈ Twitter</a>
+        <a href="#" class="contact-link">◇ Resume</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     TO CHANGE: your name and year
+     ============================================================ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-left">Designed &amp; built by <span>Atharv</span> — no templates, no shortcuts.</div>
+      <div class="footer-right">A.DEV © 2025</div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+/* ============================================================
+   CUSTOM CURSOR LOGIC
+   ============================================================ */
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+});
+
+(function animRing() {
+  rx += (mx - rx) * .12;
+  ry += (my - ry) * .12;
+  ring.style.left = Math.round(rx) + 'px';
+  ring.style.top = Math.round(ry) + 'px';
+  requestAnimationFrame(animRing);
+})();
+
+document.querySelectorAll('a,button,.project-card,.skill-item,.achieve-card').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.width = '16px'; cursor.style.height = '16px';
+    ring.style.width = '54px'; ring.style.height = '54px';
+    ring.style.borderColor = 'rgba(79,142,247,.8)';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.width = '10px'; cursor.style.height = '10px';
+    ring.style.width = '36px'; ring.style.height = '36px';
+    ring.style.borderColor = 'rgba(79,142,247,.5)';
+  });
+});
+
+
+/* ============================================================
+   HERO CANVAS — interactive dot grid
+   ============================================================ */
+const canvas = document.getElementById('hero-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, dots = [];
+
+function resize() {
+  W = canvas.width = canvas.offsetWidth;
+  H = canvas.height = canvas.offsetHeight;
+  buildDots();
+}
+
+function buildDots() {
+  dots = [];
+  const gap = 38;
+  for (let x = gap / 2; x < W; x += gap)
+    for (let y = gap / 2; y < H; y += gap)
+      dots.push({ ox: x, oy: y, x, y, r: 1.2 });
+}
+
+let mouse = { x: -1000, y: -1000 };
+document.addEventListener('mousemove', e => {
+  const rect = canvas.getBoundingClientRect();
+  mouse.x = e.clientX - rect.left;
+  mouse.y = e.clientY - rect.top;
+});
+
+(function drawDots() {
+  ctx.clearRect(0, 0, W, H);
+  dots.forEach(d => {
+    const dx = mouse.x - d.ox, dy = mouse.y - d.oy;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    const force = Math.max(0, 1 - dist / 120);
+    d.x = d.ox - dx * force * .4;
+    d.y = d.oy - dy * force * .4;
+    const alpha = 0.12 + force * .5;
+    ctx.beginPath();
+    ctx.arc(d.x, d.y, d.r + force * 1.8, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(79,142,247,${alpha})`;
+    ctx.fill();
+  });
+  requestAnimationFrame(drawDots);
+})();
+
+window.addEventListener('resize', resize);
+resize();
+
+
+/* ============================================================
+   SKILLS DATA
+   ============================================================
+   TO ADD A SKILL:   copy one object and add to the array
+   TO CHANGE LEVEL:  edit the "level" string
+   TO CHANGE ICON:   paste any emoji or symbol into "icon"
+   pct = bar fill percentage (0-100)
+   ============================================================ */
+const skills = [
+  { icon: '⬡', name: 'React',         level: 'Advanced',     pct: 88 },
+  { icon: '▲', name: 'Next.js',        level: 'Advanced',     pct: 85 },
+  { icon: '◈', name: 'Node.js',        level: 'Advanced',     pct: 82 },
+  { icon: '⬢', name: 'Python',         level: 'Expert',       pct: 92 },
+  { icon: '◇', name: 'TypeScript',     level: 'Advanced',     pct: 80 },
+  { icon: '⊞', name: 'PostgreSQL',     level: 'Intermediate', pct: 72 },
+  { icon: '⊛', name: 'Docker',         level: 'Intermediate', pct: 70 },
+  { icon: '⬟', name: 'Linux/Bash',     level: 'Advanced',     pct: 84 },
+  { icon: '◉', name: 'C / C++',        level: 'Advanced',     pct: 80 },
+  { icon: '⎋', name: 'Cybersecurity',  level: 'Advancing',    pct: 75 },
+  { icon: '◈', name: 'Git / CI',       level: 'Advanced',     pct: 86 },
+  { icon: '⊞', name: 'AI / ML',        level: 'Intermediate', pct: 68 },
+];
+
+const sg = document.getElementById('skills-grid');
+skills.forEach(s => {
+  const el = document.createElement('div');
+  el.className = 'skill-item';
+  el.innerHTML = `
+    <div class="skill-icon">${s.icon}</div>
+    <div class="skill-name">${s.name}</div>
+    <div class="skill-level">${s.level}</div>
+    <div class="skill-bar">
+      <div class="skill-bar-fill" data-pct="${s.pct}" style="width:0%"></div>
+    </div>`;
+  sg.appendChild(el);
+});
+
+
+/* ============================================================
+   PROJECTS DATA
+   ============================================================
+   TO CHANGE A PROJECT: edit title, desc, stack, impact
+   featured: true  → card spans full width (use for best project)
+   demo: null      → hides the "Live demo" button
+   gh: '#'         → set to your real GitHub URL
+   ============================================================ */
+const projects = [
+  {
+    num: 'P–01',
+    title: 'SecureVault',
+    desc: 'A zero-knowledge encrypted notes & file storage app. End-to-end encrypted client-side with AES-256. 2FA, breach detection, and audit logs built in.',
+    stack: ['Next.js', 'Node.js', 'PostgreSQL', 'Crypto.js', 'Docker'],
+    impact: '500+ users, featured on HackerNews',
+    featured: true,
+    demo: '#',      // ← your live demo URL, or null to hide
+    gh: '#',        // ← your GitHub repo URL
+  },
+  {
+    num: 'P–02',
+    title: 'ThreadOS',
+    desc: 'A custom x86 threading library with pre-emptive scheduling, mutex/semaphore primitives, and a deadlock detector — built from scratch in C.',
+    stack: ['C', 'x86 ASM', 'GDB', 'Valgrind'],
+    impact: 'Published as open-source teaching tool',
+    featured: false,
+    demo: null,
+    gh: '#',
+  },
+  {
+    num: 'P–03',
+    title: 'NeuralRoute',
+    desc: 'An AI-powered API gateway that dynamically routes requests to the best LLM provider based on cost, latency, and task type.',
+    stack: ['Python', 'FastAPI', 'Redis', 'OpenAI', 'Anthropic'],
+    impact: '3× latency reduction vs direct routing',
+    featured: false,
+    demo: '#',
+    gh: '#',
+  },
+  {
+    num: 'P–04',
+    title: 'Portscanner CLI',
+    desc: 'A blazing-fast async port scanner with service detection, CVE lookup, and beautiful terminal output. Think nmap but hackable.',
+    stack: ['Python', 'asyncio', 'Rich', 'NVD API'],
+    impact: '2k+ GitHub stars',
+    featured: false,
+    demo: null,
+    gh: '#',
+  },
+];
+
+const pg = document.getElementById('projects-grid');
+projects.forEach(p => {
+  const el = document.createElement('div');
+  el.className = 'project-card' + (p.featured ? ' project-featured' : '');
+  el.innerHTML = `
+    <div class="project-header">
+      <span class="project-num">${p.num}</span>
+      <div class="project-links">
+        ${p.demo ? `<a href="${p.demo}" target="_blank" class="project-link">Live demo ↗</a>` : ''}
+        <a href="${p.gh}" target="_blank" class="project-link">GitHub →</a>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="project-title">${p.title}</div>
+      <div class="project-desc">${p.desc}</div>
+      <div class="project-stack">${p.stack.map(s => `<span class="stack-tag">${s}</span>`).join('')}</div>
+      <div class="project-impact">${p.impact}</div>
+    </div>`;
+  pg.appendChild(el);
+});
+
+
+/* ============================================================
+   EXPERIENCE DATA
+   ============================================================
+   Add/edit entries. They display newest-first by convention.
+   ============================================================ */
+const xp = [
+  {
+    role: 'Security Research Intern',
+    org: 'CyberSec Labs — Remote',       // ← your company
+    date: 'Jun 2024 – Aug 2024',          // ← your dates
+    desc: 'Conducted penetration testing on web apps, found 3 critical vulnerabilities. Automated recon pipeline saving 14 hrs/week. Wrote internal CTF challenges used for onboarding.',
+  },
+  {
+    role: 'Full Stack Developer',
+    org: 'Freelance',
+    date: 'Jan 2024 – Present',
+    desc: 'Built and shipped 4 client projects — dashboards, SaaS tools, landing pages. Focus on performance, security, and maintainability.',
+  },
+  {
+    role: 'B.Tech Computer Science',
+    org: 'Your University Name',          // ← your university
+    date: '2022 – 2026',                  // ← your years
+    desc: 'Core coursework: Operating Systems, Networks, Algorithms, Database Systems, Computer Architecture. 8.7 GPA. Member of the Cybersecurity Club.',
+  },
+];
+
+const tc = document.getElementById('timeline-container');
+xp.forEach(x => {
+  tc.innerHTML += `
+    <div class="timeline-item">
+      <div class="timeline-header">
+        <div class="timeline-role">${x.role}</div>
+        <span class="timeline-date">${x.date}</span>
+      </div>
+      <div class="timeline-org">${x.org}</div>
+      <div class="timeline-desc">${x.desc}</div>
+    </div>`;
+});
+
+
+/* ============================================================
+   ACHIEVEMENTS DATA
+   ============================================================
+   icon: any emoji works here
+   ============================================================ */
+const achievements = [
+  {
+    icon: '⊛',
+    title: 'Smart India Hackathon 2024',
+    sub: 'Top 10 nationally out of 1,200+ teams. Built an AI-powered disaster relief coordination platform.',
+  },
+  {
+    icon: '◈',
+    title: 'Google Cybersecurity Cert',
+    sub: 'Professional Certificate by Google — Network Security, Incident Response, SIEM tools.',
+  },
+  {
+    icon: '⬢',
+    title: 'CTF — Top 50 Global',
+    sub: 'picoCTF 2024 — ranked 48th globally, specializing in binary exploitation and web challenges.',
+  },
+  {
+    icon: '◉',
+    title: 'Open Source Contributor',
+    sub: 'Merged 8 PRs into actively-maintained projects — bug fixes, docs, and new features.',
+  },
+  {
+    icon: '⬡',
+    title: 'ACM ICPC Regionals',
+    sub: 'Qualified for ICPC Asia Regionals 2024 with team, solving 4/7 competitive programming problems.',
+  },
+  {
+    icon: '▲',
+    title: 'AWS Cloud Practitioner',
+    sub: 'Certified AWS Cloud Practitioner — EC2, S3, IAM, Lambda, and cloud architecture fundamentals.',
+  },
+];
+
+const ag = document.getElementById('achieve-grid');
+achievements.forEach(a => {
+  const el = document.createElement('div');
+  el.className = 'achieve-card reveal';
+  el.innerHTML = `
+    <div class="achieve-icon">${a.icon}</div>
+    <div class="achieve-title">${a.title}</div>
+    <div class="achieve-sub">${a.sub}</div>`;
+  ag.appendChild(el);
+  observer.observe(el);   // register newly added cards with scroll observer
+});
+
+
+/* ============================================================
+   SCROLL REVEAL — watches all .reveal elements
+   ============================================================ */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('revealed'); });
+}, { threshold: .1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+
+/* ============================================================
+   SKILL BARS — animate fill when scrolled into view
+   ============================================================ */
+const barObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.skill-bar-fill').forEach((b, i) => {
+        setTimeout(() => { b.style.width = b.dataset.pct + '%'; }, i * 40);
+      });
+    }
+  });
+}, { threshold: .2 });
+
+const sgEl = document.getElementById('skills-grid');
+if (sgEl) barObserver.observe(sgEl);
+
+
+/* ============================================================
+   MOBILE — hide custom cursor on touch devices
+   ============================================================ */
+if ('ontouchstart' in window) {
+  document.getElementById('cursor').style.display = 'none';
+  document.getElementById('cursor-ring').style.display = 'none';
+  document.body.style.cursor = 'auto';
+}
+</script>
+</body>
+</html>
